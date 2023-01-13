@@ -4,31 +4,25 @@ def caesar_cipher (string, shift)
   letters = ("a".."z").to_a
   capital_letters = ("A".."Z").to_a
   new_string = ""
-  string.each_char do |char|
-    if letters.include?(char)
-      letters.index(char)
-      p letters.index(char) + shift
-    elsif capital_letters.include?(char)
-      capital_letters.index(char)
-      p capital_letters.index(char) + shift
-    else
-      p char
+  def is_out_of_range (index)
+    #returns index to lookup if out of alphabet range
+    if index > 25
+      index - 25 - 1 
+    elsif index <= 25
+      index
     end
   end
+  string.each_char do |char|
+    if letters.include?(char)
+      new_string += letters[is_out_of_range(letters.index(char) + shift)]
+    elsif capital_letters.include?(char)
+      new_string += capital_letters[is_out_of_range(capital_letters.index(char) + shift)]
+    else
+      new_string += char
+    end
+  end
+  p new_string
 end
 
+
 caesar_cipher("What a string!", 5)
-
-=begin
-take string
-iterate through each letter
-if letter is small
-  e
-  new_string += array[e.index].shift
-  if letter.shift is out of range.
-    letter.index - letter[-1].index for example 3
-    then begin looping again through the array using the leftover 2 to continue iteration.
-if letter is capital
-
-=end
-#caesar_cipher("What a string!", 5)
